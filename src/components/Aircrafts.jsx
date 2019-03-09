@@ -10,14 +10,19 @@ export default class Aircrafts extends Component {
 		xhr.open('get', this.props.url, true);
 		xhr.onload = () => {
 			const data = JSON.parse(xhr.responseText);
-			this.setState({ data: data });
+			this.setState({ data: data.data });
 		};
 		xhr.send();
 	}
   render() {
     return (
-      <tbody data={this.state.data} className="aircrafts">
-      </tbody>
+      <div data={this.state.data} className="aircrafts">
+       {
+         this.state.data.map(d => {
+          return (<li key={d.ident}>{d.ident}</li>)
+         })
+       }
+      </div>
     )
   }
 }

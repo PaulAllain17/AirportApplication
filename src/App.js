@@ -11,11 +11,11 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
         </header>
-        <body>
+        <div>
           <Aircrafts url='https://infinite-dawn-93085.herokuapp.com/aircrafts'/>
           <Rotation/>
-          <Flights/>
-        </body>
+          <Flights url='https://infinite-dawn-93085.herokuapp.com/flights'/>
+        </div>
       </div>
     );
   }
