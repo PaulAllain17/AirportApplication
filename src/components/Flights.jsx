@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 
 import Flight from './Flight.jsx';
 
@@ -38,7 +36,7 @@ export default class Flights extends Component {
        {
          this.state.data.map(d => {
           return (
-            <Flight flight={d}></Flight>)
+            <Flight key={d.id} flight={d}></Flight>)
          })
        }
        </List>

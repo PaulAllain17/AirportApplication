@@ -36,7 +36,7 @@ export default class Aircrafts extends Component {
        {
          this.state.data.map(d => {
           return (
-            <ListItem alignItems="flex-start">
+            <ListItem key={d.ident} alignItems="flex-start">
             <ListItemText
               primary={d.ident}
               secondary={
