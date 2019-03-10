@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import Aircraft from './Aircraft';
 
 const styles = theme => ({
   root: {
@@ -31,21 +30,12 @@ export default class Aircrafts extends Component {
 	}
   render() {
     return (
-      <div data={this.state.data} className="aircrafts">
+      <div className="aircrafts">
        <List>
        {
          this.state.data.map(d => {
           return (
-            <ListItem key={d.ident} alignItems="flex-start">
-            <ListItemText
-              primary={d.ident}
-              secondary={
-                <React.Fragment>
-                  {d.ident}
-                </React.Fragment>
-              }
-            />
-          </ListItem>)
+            <Aircraft key={d.id} aircraft={d}></Aircraft>)
          })
        }
        </List>
