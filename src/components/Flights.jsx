@@ -4,6 +4,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
+import Flight from './Flight.jsx';
+
 const styles = theme => ({
   root: {
     width: '100%',
@@ -36,16 +38,7 @@ export default class Flights extends Component {
        {
          this.state.data.map(d => {
           return (
-            <ListItem alignItems="flex-start">
-            <ListItemText
-              primary={d.id}
-              secondary={
-                <React.Fragment>
-                  {d.id}
-                </React.Fragment>
-              }
-            />
-          </ListItem>)
+            <Flight flight={d}></Flight>)
          })
        }
        </List>
