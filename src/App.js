@@ -9,8 +9,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-        </header>
         <div>
           <Aircrafts url='https://infinite-dawn-93085.herokuapp.com/aircrafts'/>
           <Rotation/>
