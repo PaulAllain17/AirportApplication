@@ -1,5 +1,20 @@
 import React, { Component } from 'react';
 
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+
+const styles = theme => ({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
+  inline: {
+    display: 'inline',
+  },
+});
+
 export default class Aircrafts extends Component {
   constructor(props) {
 		super(props);
@@ -17,11 +32,23 @@ export default class Aircrafts extends Component {
   render() {
     return (
       <div data={this.state.data} className="aircrafts">
+       <List>
        {
          this.state.data.map(d => {
-          return (<li key={d.ident}>{d.ident}</li>)
+          return (
+            <ListItem alignItems="flex-start">
+            <ListItemText
+              primary={d.ident}
+              secondary={
+                <React.Fragment>
+                  {d.ident}
+                </React.Fragment>
+              }
+            />
+          </ListItem>)
          })
        }
+       </List>
       </div>
     )
   }

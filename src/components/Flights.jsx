@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -49,8 +48,7 @@ export default class Flights extends Component {
           </ListItem>)
          })
        }
-      
-    </List>
+       </List>
       </div>
     )
   }
