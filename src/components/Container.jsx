@@ -35,18 +35,22 @@ export default class Container extends Component {
 		xhr.send();
   }
 
-  onClick(e, data) {
-    // Add rotation
+  addRotation(e, data) {
     this.setState({rotations: this.state.rotations.concat(data), 
                    flights: this.state.flights.filter(flight => flight.id != data.id )});
+  }
+
+  removeRotation(e, data) {
+    this.setState({rotations: this.state.rotations.filter(rotation => rotation.id != data.id ), 
+                   flights: this.state.flights.concat(data)});
   }
 
   render() {
     return (
       <div>
         <Aircrafts aircrafts={this.state.aircrafts}/>
-        <Rotations rotations={this.state.rotations}/>
-        <Flights flights={this.state.flights} onClick={this.onClick.bind(this)}/>
+        <Rotations rotations={this.state.rotations} removeRotation={this.removeRotation.bind(this)}/>
+        <Flights flights={this.state.flights} addRotation={this.addRotation.bind(this)}/>
       </div>
     );
   }

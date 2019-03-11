@@ -12,7 +12,7 @@ export default class Rotations extends Component {
        {
          this.props.rotations.map(d => {
           return (
-            <Rotation key={d.id} flight={d}></Rotation>)
+            <Rotation key={d.id} rotation={d} removeRotation={this.props.removeRotation.bind(this)}></Rotation>)
          })
        }
        </List>
