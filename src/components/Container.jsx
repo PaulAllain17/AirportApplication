@@ -45,11 +45,16 @@ export default class Container extends Component {
                    flights: this.state.flights.concat(data)});
   }
 
+  selectAircraft(e, data) {
+    this.setState({activeAircraft: data});
+  }
+
   render() {
     return (
       <div>
-        <Aircrafts aircrafts={this.state.aircrafts}/>
-        <Rotations activeAircraft={this.state.activeAircraft ? this.state.activeAircraft.ident : ""} rotations={this.state.rotations} removeRotation={this.removeRotation.bind(this)}/>
+        <Aircrafts aircrafts={this.state.aircrafts} selectAircraft={this.selectAircraft.bind(this)}/>
+        <Rotations activeAircraft={this.state.activeAircraft ? this.state.activeAircraft.ident : ""}
+                   rotations={this.state.rotations} removeRotation={this.removeRotation.bind(this)}/>
         <Flights flights={this.state.flights} addRotation={this.addRotation.bind(this)}/>
       </div>
     );

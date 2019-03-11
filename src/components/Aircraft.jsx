@@ -20,7 +20,7 @@ export default class Aircraft extends Component {
   render() {
     return (
       <ListItem className={this.state.active ? "active" : ""} key={this.props.id} alignItems="flex-start"
-                onMouseOver={(e) => this.onMouseOver()} onMouseOut={(e) => this.onMouseOut()}>
+                onMouseOver={(e) => this.onMouseOver()} onMouseOut={(e) => this.onMouseOut()} onClick={(e) => this.props.selectAircraft(e, this.props.aircraft)}>
             <ListItemText
               className="pointer aircraft"
               primary={this.props.aircraft.ident}
