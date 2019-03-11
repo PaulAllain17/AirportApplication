@@ -7,7 +7,7 @@ export default class Rotations extends Component {
   render() {
     return (
       <div className="rotations">
-        Rotations:
+        Rotation {this.props.activeAircraft}
        <List>
        {
          this.props.rotations.map(d => {

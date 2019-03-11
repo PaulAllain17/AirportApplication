@@ -7,7 +7,7 @@ export default class Flights extends Component {
   render() {
     return (
       <div className="flights">
-      Flights:
+      Flights
        <List>
        {
          this.props.flights.sort((a,b) => a.departuretime - b.departuretime).map(d => {

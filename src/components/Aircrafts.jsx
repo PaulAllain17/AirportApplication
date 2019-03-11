@@ -7,7 +7,7 @@ export default class Aircrafts extends Component {
   render() {
     return (
       <div className="aircrafts">
-        Aircrafts:
+        Aircrafts
        <List>
        {
          this.props.aircrafts.map(d => {

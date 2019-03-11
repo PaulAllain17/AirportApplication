@@ -7,7 +7,7 @@ import Rotations from './Rotations.jsx';
 export default class Container extends Component {
   constructor(props) {
 		super(props);
-		this.state = { aircrafts: [], flights: [], rotations: [] };
+		this.state = { aircrafts: [], flights: [], rotations: [], activeAircraft: null };
   }
   
 	componentWillMount() {
@@ -20,7 +20,7 @@ export default class Container extends Component {
 		xhr.open('get', 'https://infinite-dawn-93085.herokuapp.com/aircrafts', true);
 		xhr.onload = () => {
       const data = JSON.parse(xhr.responseText);
-			this.setState({ aircrafts: data.data });
+			this.setState({ aircrafts: data.data, activeAircraft: data.data[0] });
 		};
 		xhr.send();
   }
@@ -49,7 +49,7 @@ export default class Container extends Component {
     return (
       <div>
         <Aircrafts aircrafts={this.state.aircrafts}/>
-        <Rotations rotations={this.state.rotations} removeRotation={this.removeRotation.bind(this)}/>
+        <Rotations activeAircraft={this.state.activeAircraft ? this.state.activeAircraft.ident : ""} rotations={this.state.rotations} removeRotation={this.removeRotation.bind(this)}/>
         <Flights flights={this.state.flights} addRotation={this.addRotation.bind(this)}/>
       </div>
     );

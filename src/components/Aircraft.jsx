@@ -4,11 +4,25 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 export default class Aircraft extends Component {
+  constructor(props) {
+		super(props);
+		this.state = { active: false };
+  }
+
+  onMouseOver(){
+    this.setState({ active: true });
+  }
+
+  onMouseOut(){
+    this.setState({ active: false });
+  }
+
   render() {
     return (
-      <ListItem key={this.props.id} alignItems="flex-start">
+      <ListItem className={this.state.active ? "active" : ""} key={this.props.id} alignItems="flex-start"
+                onMouseOver={(e) => this.onMouseOver()} onMouseOut={(e) => this.onMouseOut()}>
             <ListItemText
-              className="aircraft"
+              className="pointer aircraft"
               primary={this.props.aircraft.ident}
               secondary={
                 <React.Fragment>

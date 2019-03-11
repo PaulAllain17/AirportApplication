@@ -65,12 +65,16 @@ i {
   -webkit-transform: rotate(-45deg);
 }
 
-.active {
+.add {
   background-color: rgb(134, 236, 194);
 }
 
 .delete {
   background-color: rgb(233, 138, 131);
+}
+
+.active {
+  background-color: rgb(236, 200, 134);
 }
 
 .pointer {
