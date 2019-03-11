@@ -32,6 +32,7 @@ export default class Flights extends Component {
   render() {
     return (
       <div className="flights">
+      Flights:
        <List>
        {
          this.state.data.map(d => {
