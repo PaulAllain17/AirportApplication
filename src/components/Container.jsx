@@ -43,16 +43,12 @@ export default class Container extends Component {
     //e.target.element.class="newGreenColor";
   }
 
-  onMouseOver(){
-    //alert("Mouse over!");
-  }
-
   render() {
     return (
       <div>
         <Aircrafts aircrafts={this.state.aircrafts}/>
         <Rotations rotations={this.state.rotations}/>
-        <Flights flights={this.state.flights} onClick={this.onClick} onMouseOver={this.onMouseOver}/>
+        <Flights flights={this.state.flights} onClick={this.onClick}/>
       </div>
     );
   }
