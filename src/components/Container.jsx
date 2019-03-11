@@ -7,7 +7,7 @@ import Rotations from './Rotations.jsx';
 export default class Container extends Component {
   constructor(props) {
 		super(props);
-		this.state = { aircrafts: [], flights: [] };
+		this.state = { aircrafts: [], flights: [], rotations: [] };
   }
   
 	componentWillMount() {
@@ -39,7 +39,7 @@ export default class Container extends Component {
     return (
       <div>
         <Aircrafts aircrafts={this.state.aircrafts}/>
-        <Rotations flights={this.state.flights}/>
+        <Rotations rotations={this.state.rotations}/>
         <Flights flights={this.state.flights}/>
       </div>
     );
