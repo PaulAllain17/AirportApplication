@@ -12,7 +12,7 @@ export default class Flights extends Component {
        {
          this.props.flights.sort((a,b) => a.departuretime - b.departuretime).map(d => {
           return (
-            <Flight key={d.id} flight={d} addRotation={this.props.addRotation.bind(this)}></Flight>)
+            <Flight key={d.id} flight={d} addRotationFlight={this.props.addRotationFlight.bind(this)}/>)
          })
        }
        </List>
