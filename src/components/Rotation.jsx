@@ -8,6 +8,7 @@ export default class Rotation extends Component {
     return (
       <ListItem key={this.props.id} alignItems="flex-start">
             <ListItemText
+              className="pointer"
               primary={this.props.flight.id}
               secondary={
                 <React.Fragment>

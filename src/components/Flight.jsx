@@ -22,6 +22,7 @@ export default class Flight extends Component {
       <ListItem className={this.state.active ? "active" : ""} key={this.props.id} alignItems="flex-start"
                 onMouseOver={(e) => this.onMouseOver()} onMouseOut={(e) => this.onMouseOut()} onClick={(e) => this.props.onClick(e, this.props.flight)}>
       <ListItemText
+        className="pointer"
         primary={this.props.flight.id}
         secondary={
           <React.Fragment>

@@ -37,7 +37,8 @@ export default class Container extends Component {
 
   onClick(e, data) {
     // Add rotation
-    this.setState({rotations: this.state.rotations.concat(data)});
+    this.setState({rotations: this.state.rotations.concat(data), 
+                   flights: this.state.flights.filter(flight => flight.id != data.id )});
   }
 
   render() {

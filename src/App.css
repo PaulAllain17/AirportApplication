@@ -63,3 +63,7 @@ i {
 .active {
   background-color: rgb(134, 236, 194);
 }
+
+.pointer {
+  cursor: pointer;
+}
