@@ -8,16 +8,22 @@ export default class Container extends Component {
   constructor(props) {
 		super(props);
 		this.state = { data: [] };
-	}
+  }
+  
 	componentWillMount() {
-		const xhr = new XMLHttpRequest();
-		xhr.open('get', 'https://infinite-dawn-93085.herokuapp.com/aircrafts', true);
+		this.getData('https://infinite-dawn-93085.herokuapp.com/aircrafts');
+  }
+  
+  getData(url){
+    const xhr = new XMLHttpRequest();
+		xhr.open('get', url, true);
 		xhr.onload = () => {
 			const data = JSON.parse(xhr.responseText);
 			this.setState({ data: data.data });
 		};
 		xhr.send();
-	}
+  }
+
   render() {
     return (
       <div>
