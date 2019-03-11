@@ -30,3 +30,8 @@
     transform: rotate(360deg);
   }
 }
+
+.aircrafts, .flights, .rotation {
+  display: inline-block;
+  vertical-align: top;
+}    
