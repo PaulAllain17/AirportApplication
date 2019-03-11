@@ -11,12 +11,14 @@ export default class Flight extends Component {
               primary={this.props.flight.id}
               secondary={
                 <React.Fragment>
-                  <span>{this.props.flight.origin}:
-                  {this.props.flight.readable_departure}
-                  </span>
-                  <span>{this.props.flight.destination}:
-                  {this.props.flight.readable_arrival}
-                  </span>
+                  <tr>
+                    <span className="flight-span">{this.props.flight.origin}</span>
+                    <span>{this.props.flight.destination}</span>
+                  </tr>
+                  <tr>
+                    <span className="flight-span">{this.props.flight.readable_departure}</span>
+                    <span>{this.props.flight.readable_arrival}</span>
+                  </tr>
                 </React.Fragment>
               }
             />
