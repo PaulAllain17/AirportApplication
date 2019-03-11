@@ -6,7 +6,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 export default class Flight extends Component {
   render() {
     return (
-      <ListItem key={this.props.id} alignItems="flex-start" onMouseOver={() => this.props.onMouseOver()} onClick={() => this.props.onClick(this.props.id)}>
+      <ListItem key={this.props.id} alignItems="flex-start" onMouseOver={() => this.props.onMouseOver()} onClick={(e) => this.props.onClick(e, this.props.flight.id)}>
             <ListItemText
               primary={this.props.flight.id}
               secondary={

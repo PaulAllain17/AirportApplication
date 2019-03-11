@@ -35,10 +35,10 @@ export default class Container extends Component {
 		xhr.send();
   }
 
-  onClick(id) {
+  onClick(e, data) {
     //This would give you all the field of the target
     //console.log(e.target.elements);
-    alert("Click on " + id);
+    alert("Click on " + data);
     // you can do all sorts of Css change by this way
     //e.target.element.class="newGreenColor";
   }
