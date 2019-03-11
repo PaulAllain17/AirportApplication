@@ -1,19 +1,7 @@
 import React, { Component } from 'react';
 
 import List from '@material-ui/core/List';
-
 import Flight from './Flight.jsx';
-
-const styles = theme => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
-  inline: {
-    display: 'inline',
-  },
-});
 
 export default class Flights extends Component {
   constructor(props) {

@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import Aircrafts from './components/Aircrafts.jsx';
-import Flights from './components/Flights.jsx';
-import Rotation from './components/Rotation.jsx';
+import Container from './components/Container.jsx';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <div>
-          <Aircrafts url='https://infinite-dawn-93085.herokuapp.com/aircrafts'/>
-          <Rotation/>
-          <Flights url='https://infinite-dawn-93085.herokuapp.com/flights'/>
-        </div>
+        <Container/>
       </div>
     );
   }
