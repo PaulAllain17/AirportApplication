@@ -35,12 +35,24 @@ export default class Container extends Component {
 		xhr.send();
   }
 
+  onClick(id) {
+    //This would give you all the field of the target
+    //console.log(e.target.elements);
+    alert("Click on " + id);
+    // you can do all sorts of Css change by this way
+    //e.target.element.class="newGreenColor";
+  }
+
+  onMouseOver(){
+    //alert("Mouse over!");
+  }
+
   render() {
     return (
       <div>
         <Aircrafts aircrafts={this.state.aircrafts}/>
         <Rotations rotations={this.state.rotations}/>
-        <Flights flights={this.state.flights}/>
+        <Flights flights={this.state.flights} onClick={this.onClick} onMouseOver={this.onMouseOver}/>
       </div>
     );
   }
