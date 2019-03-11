@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
 
+import List from '@material-ui/core/List';
+import Rotation from './Rotation.jsx';
+
 export default class Rotations extends Component {
   render() {
     return (
       <div className="rotations">
-        { this.props.children }
+        Rotations:
+       <List>
+       {
+         this.props.flights.map(d => {
+          return (
+            <Rotation key={d.id} flight={d}></Rotation>)
+         })
+       }
+       </List>
       </div>
     )
   }

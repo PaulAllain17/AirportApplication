@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Aircrafts from './Aircrafts.jsx';
 import Flights from './Flights.jsx';
-import Rotation from './Rotation.jsx';
+import Rotations from './Rotations.jsx';
 
 export default class Container extends Component {
   constructor(props) {
@@ -39,7 +39,7 @@ export default class Container extends Component {
     return (
       <div>
         <Aircrafts aircrafts={this.state.aircrafts}/>
-        <Rotation/>
+        <Rotations flights={this.state.flights}/>
         <Flights flights={this.state.flights}/>
       </div>
     );
