@@ -23,7 +23,7 @@ export default class Rotation extends Component {
                 onMouseOver={(e) => this.onMouseOver()} onMouseOut={(e) => this.onMouseOut()} onClick={(e) => this.props.removeRotation(e, this.props.rotation)}>
             <ListItemText
               className="pointer"
-              primary={this.props.rotation.id}
+              primary={"Flight: " + this.props.rotation.id}
               secondary={
                 <React.Fragment>
                   <tr>

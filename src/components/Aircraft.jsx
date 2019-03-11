@@ -8,6 +8,7 @@ export default class Aircraft extends Component {
     return (
       <ListItem key={this.props.id} alignItems="flex-start">
             <ListItemText
+              className="aircraft"
               primary={this.props.aircraft.ident}
               secondary={
                 <React.Fragment>

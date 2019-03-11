@@ -34,6 +34,11 @@
 .aircrafts, .flights, .rotations {
   display: inline-block;
   vertical-align: top;
+  margin: 80px;
+}
+
+.aircraft, .flight {
+  text-align: center;
 }
 
 .flight-span {
