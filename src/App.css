@@ -30,3 +30,36 @@
     transform: rotate(360deg);
   }
 }
+
+.aircrafts, .flights, .rotations {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.flight-span {
+  margin-right: 30px;
+}
+
+.rotation-span {
+  margin-left: 30px;
+}
+
+.rotation-arrival-span {
+  margin-left: 40px;
+}
+
+i {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.active {
+  background-color: rgb(134, 236, 194);
+}

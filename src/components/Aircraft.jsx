@@ -15,7 +15,7 @@ export default class Aircraft extends Component {
                 </React.Fragment>
               }
             />
-          </ListItem>
+      </ListItem>
     )
   }
 }
