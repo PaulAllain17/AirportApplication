@@ -26,7 +26,7 @@ export default class Aircraft extends Component {
               primary={this.props.aircraft.ident}
               secondary={
                 <React.Fragment>
-                  {this.props.currentPercentage}%
+                  ({this.props.currentPercentage}%)
                 </React.Fragment>
               }
             />
