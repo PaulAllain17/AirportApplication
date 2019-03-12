@@ -11,7 +11,7 @@ export default class Container extends Component {
   constructor(props) {
 		super(props);
     this.state = { aircrafts: [], flights: [], rotation: [], rotations: null, activeAircraft: null,
-                   currentPercentage: 0, turnAroundTime: 2400, midnight: 86400 };
+                   currentPercentage: 0 };
   }
 
   setFlights(data){
@@ -22,27 +22,13 @@ export default class Container extends Component {
     this.setState({ aircrafts: aircraftList, activeAircraft: newActiveAircraft, rotations: rotationObject });
   }
 
-  addRotationFlight(e, data) {
-    if (!this.validateFlight(data)){
-      return;
-    }
-    
-    const newPercentage = this.state.currentPercentage + Math.round((data.arrivaltime - data.departuretime) * 100 / this.state.midnight);
-
-    const { rotationObject, aircraft } = this.getNewData(newPercentage);
-
-    this.setState({rotation: this.state.rotation.concat(data), 
-                   flights: this.state.flights.filter(flight => flight.id !== data.id ),
-                   currentPercentage: newPercentage,
-                   rotations: this.state.rotations.filter(rotationObject => rotationObject.aircraft.ident !== this.state.activeAircraft.ident)
-                                                  .concat({aircraft: rotationObject.aircraft, rotation: this.state.rotation.concat(data)}),
-                   aircrafts: this.state.aircrafts.filter(aircraft => aircraft.aircraft.ident !== this.state.activeAircraft.ident)
-                                                  .concat(aircraft)});
-    NotificationManager.success('Your flight ' + data.id + ' was added to the current rotation.', 'Flight ' + data.id + ' Added!');
+  setFlightChange(newRotation, newFlights, newPercentage, newRotations, newAircrafts){
+    this.setState({ rotation: newRotation, flights: newFlights, currentPercentage: newPercentage,
+                    rotations: newRotations, aircrafts: newAircrafts });
   }
 
   removeRotationFlight(e, data) {
-    const newPercentage = this.state.currentPercentage - Math.round((data.arrivaltime - data.departuretime) * 100 / this.state.midnight);
+    const newPercentage = this.state.currentPercentage - Math.round((data.arrivaltime - data.departuretime) * 100 / 86400);
 
     const { rotationObject, aircraft } = this.getNewData(newPercentage);
 
@@ -71,27 +57,6 @@ export default class Container extends Component {
     return { rotationObject, aircraft };
   }
 
-  validateFlight(data){
-    const lastRotationFlight = this.state.rotation[this.state.rotation.length - 1];
-    if (lastRotationFlight !== undefined){
-      if (lastRotationFlight.destination !== data.origin){
-        NotificationManager.error('Your flight ' + data.id + ' needs do depart from ' + lastRotationFlight.destination, 'Wrong Origin!');
-        return false;
-      }
-      if (lastRotationFlight.arrivaltime + this.state.turnAroundTime > data.departuretime){
-        NotificationManager.error('Your flight ' + data.id +
-        ' is too early and should start at least 40min after the arrival time of the previous flight in the current rota.', 'Too Early!');
-        return false;
-      }
-      if (data.arrivaltime > this.state.midnight){
-        NotificationManager.error('Your flight ' + data.id + ' cannot arrive any later than midnight.', 'Too Late!');
-        return false;
-      }
-      return true;
-    }
-    return true;
-  }
-
   render() {
     return (
       <div>
@@ -99,7 +64,9 @@ export default class Container extends Component {
         <Aircrafts aircrafts={this.state.aircrafts} selectAircraft={this.selectAircraft.bind(this)}/>
         <Rotation activeAircraft={this.state.activeAircraft ? this.state.activeAircraft.ident : ""}
                    rotation={this.state.rotation} removeRotationFlight={this.removeRotationFlight.bind(this)}/>
-        <Flights flights={this.state.flights} addRotationFlight={this.addRotationFlight.bind(this)}/>
+        <Flights flights={this.state.flights} rotation={this.state.rotation} rotations={this.state.rotations}
+                  aircrafts={this.state.aircrafts} activeAircraft={this.state.activeAircraft ? this.state.activeAircraft.ident : ""}
+                  currentPercentage={this.state.currentPercentage} setFlightChange={this.setFlightChange.bind(this)}/>
         <NotificationContainer/>
       </div>
     );
