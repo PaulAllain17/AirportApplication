@@ -9,7 +9,7 @@ import Rotation from './Rotation.jsx';
 export default class Container extends Component {
   constructor(props) {
 		super(props);
-		this.state = { aircrafts: [], flights: [], rotation: [], rotations: null, activeAircraft: null, turnAroundTime: 2400 };
+		this.state = { aircrafts: [], flights: [], rotation: [], rotations: null, activeAircraft: null, turnAroundTime: 2400, midnight: 86400 };
   }
   
 	componentWillMount() {
@@ -22,10 +22,10 @@ export default class Container extends Component {
 		xhr.open('get', 'https://infinite-dawn-93085.herokuapp.com/aircrafts', true);
 		xhr.onload = () => {
       const data = JSON.parse(xhr.responseText);
-      const rotationObject = [{"ident":"GABCD","type":"A320","economySeats":186,"base":"EGKK"},{"ident":"HDBCD","type":"C820","economySeats":200,"base":"LDTT"}]
-                             .map(aircraft => { return {aircraft: aircraft, rotation: []} });
-      this.setState({ aircrafts: [{"ident":"GABCD","type":"A320","economySeats":186,"base":"EGKK"},{"ident":"HDBCD","type":"C820","economySeats":200,"base":"LDTT"}],
-                      activeAircraft: data.data[0], rotations: rotationObject });
+      data.data = [{"ident":"GABCD","type":"A320","economySeats":186,"base":"LFSB"},{"ident":"HDBCD","type":"A320","economySeats":200,"base":"EHAM"}
+                  ,{"ident":"HDBCD","type":"A320","economySeats":200,"base":"LEBL"}];
+      const rotationObject = data.data.map(aircraft => { return {aircraft: aircraft, rotation: []} });
+      this.setState({ aircrafts: data.data, activeAircraft: data.data[0], rotations: rotationObject });
 		};
 		xhr.send();
   }
@@ -63,6 +63,10 @@ export default class Container extends Component {
       if (lastRotationFlight.arrivaltime + this.state.turnAroundTime > data.departuretime){
         NotificationManager.error('Your flight ' + data.id +
         ' is too early and should start at least 40min after the arrival time of the previous flight in the current rota.', 'Too Early!');
+        return false;
+      }
+      if (data.arrivaltime > this.state.midnight){
+        NotificationManager.error('Your flight ' + data.id + ' cannot arrive any later than midnight.', 'Too Late!');
         return false;
       }
       return true;
