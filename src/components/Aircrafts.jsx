@@ -18,7 +18,7 @@ export default class Aircrafts extends Component {
         Aircrafts
        <List>
        {
-         this.props.aircrafts.map(d => {
+         this.props.aircrafts.sort((a,b) => String(a.aircraft.ident).localeCompare(b.aircraft.ident)).map(d => {
           return (
             <Aircraft key={d.aircraft.ident} aircraft={d.aircraft} currentPercentage={d.percentage} selectAircraft={this.selectAircraft.bind(this)}/>)
          })
