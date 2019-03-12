@@ -9,7 +9,7 @@ import Rotation from './Rotation.jsx';
 export default class Container extends Component {
   constructor(props) {
 		super(props);
-		this.state = { aircrafts: [], flights: [], rotation: [], rotations: null, activeAircraft: null };
+		this.state = { aircrafts: [], flights: [], rotation: [], rotations: null, activeAircraft: null, turnAroundTime: 2400 };
   }
   
 	componentWillMount() {
@@ -42,9 +42,16 @@ export default class Container extends Component {
 
   addRotationFlight(e, data) {
     const lastRotationFlight = this.state.rotation[this.state.rotation.length - 1];
-    if (lastRotationFlight !== undefined && lastRotationFlight.destination !== data.origin){
-      NotificationManager.error('Your flight ' + data.id + ' needs do depart from ' + lastRotationFlight.destination, 'Wrong Origin!');
-      return;
+    if (lastRotationFlight !== undefined){
+      if (lastRotationFlight.destination !== data.origin){
+        NotificationManager.error('Your flight ' + data.id + ' needs do depart from ' + lastRotationFlight.destination, 'Wrong Origin!');
+        return;
+      }
+      if (lastRotationFlight.arrivaltime + this.state.turnAroundTime > data.departuretime){
+        NotificationManager.error('Your flight ' + data.id +
+        ' is too early and should start at least 40min after the arrival time of the previous flight in the current rota.', 'Too Early!');
+        return;
+      }
     }
 
     const rotationObject = this.state.rotations.find(rotationObject => rotationObject.aircraft.ident === this.state.activeAircraft.ident);
