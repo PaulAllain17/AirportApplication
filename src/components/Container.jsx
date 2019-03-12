@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import {NotificationContainer} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 
 import Aircrafts from './Aircrafts.jsx';
@@ -27,25 +27,27 @@ export default class Container extends Component {
                     rotations: newRotations, aircrafts: newAircrafts });
   }
 
-  selectAircraft(e, data) {
-    const newAircraft = this.state.aircrafts.find(aircraft => aircraft.aircraft.ident === data.ident);
-    this.setState({activeAircraft: data,
-                   currentPercentage: newAircraft.percentage,
-                   rotation: this.state.rotations.find(rotationObject => rotationObject.aircraft.ident === data.ident).rotation});
-    NotificationManager.info('You are now looking at the rotation for the aircraft ' + data.ident + '.');
+  setAircraftChange(newActiveAircraft, newPercentage, newRotation){
+    this.setState({ activeAircraft: newActiveAircraft, currentPercentage: newPercentage,
+                    rotation: newRotation });
   }
 
   render() {
     return (
       <div>
         <DataService setAircrafts={this.setAircrafts.bind(this)} setFlights={this.setFlights.bind(this)}/>
-        <Aircrafts aircrafts={this.state.aircrafts} selectAircraft={this.selectAircraft.bind(this)}/>
+
+        <Aircrafts aircrafts={this.state.aircrafts} setAircraftChange={this.setAircraftChange.bind(this)}
+                   rotations={this.state.rotations}/>
+
         <Rotation flights={this.state.flights} rotation={this.state.rotation} rotations={this.state.rotations}
                   aircrafts={this.state.aircrafts} activeAircraft={this.state.activeAircraft ? this.state.activeAircraft.ident : ""}
                   currentPercentage={this.state.currentPercentage} setFlightChange={this.setFlightChange.bind(this)}/>
+
         <Flights flights={this.state.flights} rotation={this.state.rotation} rotations={this.state.rotations}
                   aircrafts={this.state.aircrafts} activeAircraft={this.state.activeAircraft ? this.state.activeAircraft.ident : ""}
                   currentPercentage={this.state.currentPercentage} setFlightChange={this.setFlightChange.bind(this)}/>
+
         <NotificationContainer/>
       </div>
     );
