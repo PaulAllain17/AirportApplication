@@ -27,21 +27,6 @@ export default class Container extends Component {
                     rotations: newRotations, aircrafts: newAircrafts });
   }
 
-  removeRotationFlight(e, data) {
-    const newPercentage = this.state.currentPercentage - Math.round((data.arrivaltime - data.departuretime) * 100 / 86400);
-
-    const { rotationObject, aircraft } = this.getNewData(newPercentage);
-
-    this.setState({rotation: this.state.rotation.filter(rotationFlight => rotationFlight.id !== data.id ), 
-                   flights: this.state.flights.concat(data),
-                   currentPercentage: newPercentage,
-                   rotations: this.state.rotations.filter(rotationObject => rotationObject.aircraft.ident !== this.state.activeAircraft.ident)
-                                                  .concat({aircraft: rotationObject.aircraft, rotation: this.state.rotation.filter(rotationFlight => rotationFlight.id !== data.id )}),
-                   aircrafts: this.state.aircrafts.filter(aircraft => aircraft.aircraft.ident !== this.state.activeAircraft.ident)
-                                                  .concat(aircraft)});
-    NotificationManager.success('Your flight ' + data.id + ' was removed from the current rotation.', 'Flight ' + data.id + ' Removed!');
-  }
-
   selectAircraft(e, data) {
     const newAircraft = this.state.aircrafts.find(aircraft => aircraft.aircraft.ident === data.ident);
     this.setState({activeAircraft: data,
@@ -50,20 +35,14 @@ export default class Container extends Component {
     NotificationManager.info('You are now looking at the rotation for the aircraft ' + data.ident + '.');
   }
 
-  getNewData(newPercentage) {
-    const aircraft = this.state.aircrafts.find(aircraft => aircraft.aircraft.ident === this.state.activeAircraft.ident);
-    aircraft.percentage = newPercentage;
-    const rotationObject = this.state.rotations.find(rotationObject => rotationObject.aircraft.ident === this.state.activeAircraft.ident);
-    return { rotationObject, aircraft };
-  }
-
   render() {
     return (
       <div>
         <DataService setAircrafts={this.setAircrafts.bind(this)} setFlights={this.setFlights.bind(this)}/>
         <Aircrafts aircrafts={this.state.aircrafts} selectAircraft={this.selectAircraft.bind(this)}/>
-        <Rotation activeAircraft={this.state.activeAircraft ? this.state.activeAircraft.ident : ""}
-                   rotation={this.state.rotation} removeRotationFlight={this.removeRotationFlight.bind(this)}/>
+        <Rotation flights={this.state.flights} rotation={this.state.rotation} rotations={this.state.rotations}
+                  aircrafts={this.state.aircrafts} activeAircraft={this.state.activeAircraft ? this.state.activeAircraft.ident : ""}
+                  currentPercentage={this.state.currentPercentage} setFlightChange={this.setFlightChange.bind(this)}/>
         <Flights flights={this.state.flights} rotation={this.state.rotation} rotations={this.state.rotations}
                   aircrafts={this.state.aircrafts} activeAircraft={this.state.activeAircraft ? this.state.activeAircraft.ident : ""}
                   currentPercentage={this.state.currentPercentage} setFlightChange={this.setFlightChange.bind(this)}/>
