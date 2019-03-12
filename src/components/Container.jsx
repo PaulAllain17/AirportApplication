@@ -34,7 +34,7 @@ export default class Container extends Component {
 
   render() {
     return (
-      <div>
+      <div className="App-body">
         <DataService setAircrafts={this.setAircrafts.bind(this)} setFlights={this.setFlights.bind(this)}/>
 
         <Aircrafts aircrafts={this.state.aircrafts} setAircraftChange={this.setAircraftChange.bind(this)}
