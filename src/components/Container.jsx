@@ -41,17 +41,8 @@ export default class Container extends Component {
   }
 
   addRotationFlight(e, data) {
-    const lastRotationFlight = this.state.rotation[this.state.rotation.length - 1];
-    if (lastRotationFlight !== undefined){
-      if (lastRotationFlight.destination !== data.origin){
-        NotificationManager.error('Your flight ' + data.id + ' needs do depart from ' + lastRotationFlight.destination, 'Wrong Origin!');
-        return;
-      }
-      if (lastRotationFlight.arrivaltime + this.state.turnAroundTime > data.departuretime){
-        NotificationManager.error('Your flight ' + data.id +
-        ' is too early and should start at least 40min after the arrival time of the previous flight in the current rota.', 'Too Early!');
-        return;
-      }
+    if (!this.validateFlight(data)){
+      return;
     }
 
     const rotationObject = this.state.rotations.find(rotationObject => rotationObject.aircraft.ident === this.state.activeAircraft.ident);
@@ -60,6 +51,23 @@ export default class Container extends Component {
                    rotations: this.state.rotations.filter(rotationObject => rotationObject.aircraft.ident !== this.state.activeAircraft.ident)
                    .concat({aircraft: rotationObject.aircraft, rotation: this.state.rotation.concat(data)})});
     NotificationManager.success('Your flight ' + data.id + ' was added to the current rotation.', 'Flight ' + data.id + ' Added!');
+  }
+
+  validateFlight(data){
+    const lastRotationFlight = this.state.rotation[this.state.rotation.length - 1];
+    if (lastRotationFlight !== undefined){
+      if (lastRotationFlight.destination !== data.origin){
+        NotificationManager.error('Your flight ' + data.id + ' needs do depart from ' + lastRotationFlight.destination, 'Wrong Origin!');
+        return false;
+      }
+      if (lastRotationFlight.arrivaltime + this.state.turnAroundTime > data.departuretime){
+        NotificationManager.error('Your flight ' + data.id +
+        ' is too early and should start at least 40min after the arrival time of the previous flight in the current rota.', 'Too Early!');
+        return false;
+      }
+      return true;
+    }
+    return true;
   }
 
   removeRotationFlight(e, data) {
