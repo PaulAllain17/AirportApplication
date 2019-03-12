@@ -12,7 +12,7 @@ export default class Aircrafts extends Component {
        {
          this.props.aircrafts.map(d => {
           return (
-            <Aircraft key={d.ident} aircraft={d} selectAircraft={this.props.selectAircraft.bind(this)}/>)
+            <Aircraft key={d.aircraft.ident} aircraft={d.aircraft} currentPercentage={d.percentage} selectAircraft={this.props.selectAircraft.bind(this)}/>)
          })
        }
        </List>
