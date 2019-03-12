@@ -10,7 +10,7 @@ export default class Container extends Component {
   constructor(props) {
 		super(props);
     this.state = { aircrafts: [], flights: [], rotation: [], rotations: null, activeAircraft: null,
-                   currentPercentage: 0, turnAroundTime: 2400, midnight: 86400 };
+                   currentPercentage: 0, turnAroundTime: 2400, midnight: 86400, validAircraftType: "A320" };
   }
   
 	componentWillMount() {
@@ -22,12 +22,12 @@ export default class Container extends Component {
     const xhr = new XMLHttpRequest();
 		xhr.open('get', 'https://infinite-dawn-93085.herokuapp.com/aircrafts', true);
 		xhr.onload = () => {
-      const data = JSON.parse(xhr.responseText);
-      data.data = [{"ident":"GABCD","type":"A320","economySeats":186,"base":"LFSB"},{"ident":"ERBCD","type":"A320","economySeats":200,"base":"EHAM"}
+      let data = JSON.parse(xhr.responseText).data.filter(aircraft => aircraft.type === this.state.validAircraftType);
+      data = [{"ident":"GABCD","type":"A320","economySeats":186,"base":"LFSB"},{"ident":"ERBCD","type":"A320","economySeats":200,"base":"EHAM"}
                   ,{"ident":"HDBCD","type":"A320","economySeats":200,"base":"LEBL"}];
-      const rotationObject = data.data.map(aircraft => { return {aircraft: aircraft, rotation: []} });
-      const aircraftList = data.data.map(aircraft => { return {aircraft: aircraft, percentage: 0} });
-      this.setState({ aircrafts: aircraftList, activeAircraft: data.data[0], rotations: rotationObject });
+      const rotationObject = data.map(aircraft => { return {aircraft: aircraft, rotation: []} });
+      const aircraftList = data.map(aircraft => { return {aircraft: aircraft, percentage: 0} });
+      this.setState({ aircrafts: aircraftList, activeAircraft: data[0], rotations: rotationObject });
 		};
 		xhr.send();
   }
@@ -36,8 +36,8 @@ export default class Container extends Component {
     const xhr = new XMLHttpRequest();
 		xhr.open('get', 'https://infinite-dawn-93085.herokuapp.com/flights', true);
 		xhr.onload = () => {
-      const data = JSON.parse(xhr.responseText);
-			this.setState({ flights: data.data });
+      const data = JSON.parse(xhr.responseText).data;
+			this.setState({ flights: data });
 		};
 		xhr.send();
   }
