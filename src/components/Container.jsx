@@ -5,41 +5,21 @@ import 'react-notifications/lib/notifications.css';
 import Aircrafts from './Aircrafts.jsx';
 import Flights from './Flights.jsx';
 import Rotation from './Rotation.jsx';
+import DataService from './DataService.jsx';
 
 export default class Container extends Component {
   constructor(props) {
 		super(props);
     this.state = { aircrafts: [], flights: [], rotation: [], rotations: null, activeAircraft: null,
-                   currentPercentage: 0, turnAroundTime: 2400, midnight: 86400, validAircraftType: "A320" };
-  }
-  
-	componentWillMount() {
-    this.getAircrafts();
-    this.getFlights();
-  }
-  
-  getAircrafts(){
-    const xhr = new XMLHttpRequest();
-		xhr.open('get', 'https://infinite-dawn-93085.herokuapp.com/aircrafts', true);
-		xhr.onload = () => {
-      let data = JSON.parse(xhr.responseText).data.filter(aircraft => aircraft.type === this.state.validAircraftType);
-      data = [{"ident":"GABCD","type":"A320","economySeats":186,"base":"LFSB"},{"ident":"ERBCD","type":"A320","economySeats":200,"base":"EHAM"}
-                  ,{"ident":"HDBCD","type":"A320","economySeats":200,"base":"LEBL"}];
-      const rotationObject = data.map(aircraft => { return {aircraft: aircraft, rotation: []} });
-      const aircraftList = data.map(aircraft => { return {aircraft: aircraft, percentage: 0} });
-      this.setState({ aircrafts: aircraftList, activeAircraft: data[0], rotations: rotationObject });
-		};
-		xhr.send();
+                   currentPercentage: 0, turnAroundTime: 2400, midnight: 86400 };
   }
 
-  getFlights(){
-    const xhr = new XMLHttpRequest();
-		xhr.open('get', 'https://infinite-dawn-93085.herokuapp.com/flights', true);
-		xhr.onload = () => {
-      const data = JSON.parse(xhr.responseText).data;
-			this.setState({ flights: data });
-		};
-		xhr.send();
+  setFlights(data){
+    this.setState({ flights: data });
+  }
+
+  setAircrafts(aircraftList, newActiveAircraft, rotationObject){
+    this.setState({ aircrafts: aircraftList, activeAircraft: newActiveAircraft, rotations: rotationObject });
   }
 
   addRotationFlight(e, data) {
@@ -115,6 +95,7 @@ export default class Container extends Component {
   render() {
     return (
       <div>
+        <DataService setAircrafts={this.setAircrafts.bind(this)} setFlights={this.setFlights.bind(this)}/>
         <Aircrafts aircrafts={this.state.aircrafts} selectAircraft={this.selectAircraft.bind(this)}/>
         <Rotation activeAircraft={this.state.activeAircraft ? this.state.activeAircraft.ident : ""}
                    rotation={this.state.rotation} removeRotationFlight={this.removeRotationFlight.bind(this)}/>
