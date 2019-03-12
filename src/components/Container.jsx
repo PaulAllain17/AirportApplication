@@ -41,6 +41,12 @@ export default class Container extends Component {
   }
 
   addRotationFlight(e, data) {
+    const lastRotationFlight = this.state.rotation[this.state.rotation.length - 1];
+    if (lastRotationFlight !== undefined && lastRotationFlight.destination !== data.origin){
+      NotificationManager.error('Your flight ' + data.id + ' needs do depart from ' + lastRotationFlight.destination, 'Wrong Origin!');
+      return;
+    }
+
     const rotationObject = this.state.rotations.find(rotationObject => rotationObject.aircraft.ident === this.state.activeAircraft.ident);
     this.setState({rotation: this.state.rotation.concat(data), 
                    flights: this.state.flights.filter(flight => flight.id !== data.id ),
